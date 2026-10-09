@@ -1,7 +1,10 @@
 const defaultApiBaseUrl = ["localhost", "127.0.0.1"].includes(window.location.hostname)
   ? "http://localhost:5000/api"
   : "https://hostelmart-backend-03pk.onrender.com/api";
-const API_BASE_URL = (import.meta.env.VITE_API_URL || defaultApiBaseUrl).replace(/\/$/, "");
+const configuredApiBaseUrl = (import.meta.env.VITE_API_URL || defaultApiBaseUrl).replace(/\/+$/, "");
+const API_BASE_URL = configuredApiBaseUrl.endsWith("/api")
+  ? configuredApiBaseUrl
+  : `${configuredApiBaseUrl}/api`;
 
 export function getToken() {
   try {
